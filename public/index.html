@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            width: 400px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            background: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        p {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Resturent Ai Assistant</h1>
+    <div class="container">
+        <h2>Enter Your Text</h2>
+        <input type="text" id="userInput" placeholder="Ask me. What's on the dinner menu" />
+        <p id="output"></p>
+        <button id="btn" onclick="sendMessage()">Submit</button>
+    </div>
+
+    <script>
+        const sendMessage = async () => {
+            const input = document.getElementById("userInput").value;
+            const btn = document.getElementById("btn");
+
+            btn.textContent = "Loading ..."
+            const res = await fetch("/api/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ input })
+            });
+
+            const data = await res.json();
+            const output = document.getElementById("output")
+            output.innerText += `Your message ${input}, \n  Ai : ${data.message}\n\n`
+            document.getElementById("userInput").value = ""
+            btn.textContent = "Send"
+        }
+    </script>
+</body>
+
+</html>

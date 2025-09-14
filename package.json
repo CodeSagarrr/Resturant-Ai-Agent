@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon socket.js"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,7 @@
     "express": "^5.1.0",
     "langchain": "^0.3.33",
     "nodemon": "^3.1.10",
+    "socket.io": "^4.8.1",
     "zod": "^4.1.8"
   }
 }
